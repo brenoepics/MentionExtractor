@@ -47,7 +47,6 @@ Emulator_texts:
 | commands.cmd_mention.follow.enabled | 1 |
 | commands.cmd_mention.message.show_username.enabled | 1 |
 | commands.cmd_mention_everyone.follow.enabled | 1 |
-| commands.cmd_mention.installed | NEVER CHANGE THIS |
 
  Permissions:
   | Key | Default Value |
