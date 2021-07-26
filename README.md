@@ -1,4 +1,4 @@
-# MentionPlugin 2.0
+# MentionPlugin 2.1
 
 Working with Arcturus Morningstar 3.0.0
 
@@ -19,8 +19,8 @@ with a message and your friend will receive it.
 
 ## How can i install it?
 
- 1. Download a pre-compiled version [MentionPlugin.jar](https://github.com/brenoepics/MentionPlugin/raw/master/target/MentionPlugin-2.0.jar)
- 2. Paste the MentionPlugin-2.0.jar file into your emulator's plugins folder and start/restart the emulator.
+ 1. Download a pre-compiled version [MentionPlugin.jar](https://github.com/brenoepics/MentionPlugin/raw/master/target/MentionPlugin-2.1-jar-with-dependencies.jar)
+ 2. Paste the MentionPlugin-2.1-jar-with-dependencies.jar file into your emulator's plugins folder and start/restart the emulator.
  3. Now you need to give permission for your users to use @mention, to do it open your database in the permissions table, and change the acc_mention, acc_mention_everyone and acc_mention_friends.
  4. Then, enter your hotel and type: :update_permissions or restart the emulator.
  5. Now just mention a friend or maybe everyone :)
