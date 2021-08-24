@@ -1,7 +1,10 @@
 package com.brenoepic.events;
 
 import com.brenoepic.utils.Mention;
-import com.brenoepic.utils.RegexUtility;
+
+import java.util.Set;
+
+import com.brenoepic.utils.Functions;
 import com.eu.habbo.Emulator;
 import com.eu.habbo.habbohotel.rooms.RoomChatMessageBubbles;
 import com.eu.habbo.habbohotel.users.Habbo;
@@ -14,8 +17,9 @@ public class MentionUser implements EventListener {
   @EventHandler
   public static void onUserTalkEvent(UserTalkEvent event) throws Exception {
 
-    String userMentioned = RegexUtility.getUserMentionedFromChat(event.chatMessage.getMessage());
-    if (!userMentioned.isEmpty()) {
+    Set<String> GetMention = Functions.getUserMentionedFromChat(event.chatMessage.getMessage());;
+    if (!GetMention.isEmpty()) {
+      for(String userMentioned : GetMention){
       String message;
       Habbo sender = event.chatMessage.getHabbo();
       if (userMentioned.equals("everyone") && event.chatMessage.getHabbo().hasPermission("acc_mention_everyone")) {
@@ -67,6 +71,7 @@ public class MentionUser implements EventListener {
       }
 
     }
+  }
 
   }
 }

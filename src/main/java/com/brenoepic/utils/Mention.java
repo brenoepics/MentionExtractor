@@ -7,9 +7,7 @@ import com.eu.habbo.habbohotel.messenger.MessengerBuddy;
 import com.eu.habbo.habbohotel.rooms.Room;
 import com.eu.habbo.habbohotel.users.Habbo;
 import com.eu.habbo.messages.outgoing.generic.alerts.BubbleAlertComposer;
-
-import org.owasp.html.HtmlPolicyBuilder;
-import org.owasp.html.PolicyFactory;
+import com.brenoepic.utils.Functions;
 
 import gnu.trove.map.hash.THashMap;
 
@@ -18,11 +16,7 @@ public class Mention {
    * @author BrenoEpic
    */
 
-   public static String Sanitize(String str){
-    PolicyFactory policy = new HtmlPolicyBuilder()
-    .toFactory();
-    return policy.sanitize(str);
-   }
+
   public static String Everyone(Habbo sender, String message) {
     THashMap < String, String > mention = new THashMap < > ();
     mention.put("display", "BUBBLE");
@@ -32,7 +26,7 @@ public class Mention {
       mention.put("linkUrl", "event:navigator/goto/" + sender.getHabboInfo().getCurrentRoom().getId());
     }
 
-    mention.put("message", Emulator.getTexts().getValue("commands.cmd_mention_everyone.message").replace("%MESSAGE%", Sanitize(message)).replace("%SENDER%", sender.getHabboInfo().getUsername()));
+    mention.put("message", Emulator.getTexts().getValue("commands.cmd_mention_everyone.message").replace("%MESSAGE%", Functions.Sanitize(message)).replace("%SENDER%", sender.getHabboInfo().getUsername()));
 
     for (Map.Entry < Integer, Habbo > set: Emulator.getGameEnvironment().getHabboManager().getOnlineHabbos().entrySet()) {
       Habbo receiver = set.getValue();
@@ -52,7 +46,7 @@ public class Mention {
     if (room != null && Emulator.getConfig().getBoolean("commands.cmd_mention.follow.enabled")) {
       mention.put("linkUrl", "event:navigator/goto/" + sender.getHabboInfo().getCurrentRoom().getId());
     }
-    mention.put("message", Emulator.getTexts().getValue("commands.cmd_mention.message").replace("%MESSAGE%", Sanitize(message)).replace("%SENDER%", sender.getHabboInfo().getUsername()));
+    mention.put("message", Emulator.getTexts().getValue("commands.cmd_mention.message").replace("%MESSAGE%", Functions.Sanitize(message)).replace("%SENDER%", sender.getHabboInfo().getUsername()));
     for (MessengerBuddy player: sender.getMessenger().getFriends().values()) {
       Habbo receiver = Emulator.getGameEnvironment().getHabboManager().getHabbo(player.getId());
       if (player.getOnline() == 0 || receiver == null)
@@ -71,7 +65,7 @@ public class Mention {
     if (room != null && Emulator.getConfig().getBoolean("commands.cmd_mention.follow.enabled")) {
       mention.put("linkUrl", "event:navigator/goto/" + sender.getHabboInfo().getCurrentRoom().getId());
     }
-    mention.put("message", Emulator.getTexts().getValue("commands.cmd_mention.message").replace("%MESSAGE%", Sanitize(message)).replace("%SENDER%", sender.getHabboInfo().getUsername()));
+    mention.put("message", Emulator.getTexts().getValue("commands.cmd_mention.message").replace("%MESSAGE%", Functions.Sanitize(message)).replace("%SENDER%", sender.getHabboInfo().getUsername()));
     receiver.getClient().sendResponse(new BubbleAlertComposer("mention", mention));
 
     return Emulator.getTexts().getValue("commands.cmd_mention.message.sent");

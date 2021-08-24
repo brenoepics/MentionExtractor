@@ -15,12 +15,14 @@ public class Extras {
     Emulator.getTexts().register("commands.cmd_mention.allfriends", "all friends");
     Emulator.getTexts().register("commands.cmd_mention.look", "${image.library.url}notifications/fig/%LOOK%.png");
     Emulator.getTexts().register("commands.cmd_mention_everyone.look", "${image.library.url}notifications/fig/%LOOK%.png");
-  
+
     Emulator.getConfig().register("commands.cmd_mention_friends.prefix", "friends");
     Emulator.getConfig().register("commands.cmd_mention.message.delete", "0");
     Emulator.getConfig().register("commands.cmd_mention.follow.enabled", "1");
     Emulator.getConfig().register("commands.cmd_mention.message.show_username.enabled", "1");
     Emulator.getConfig().register("commands.cmd_mention_everyone.follow.enabled", "1");
+    Emulator.getConfig().register("commands.cmd_mention_regex", "@(\\w+)");
+    Emulator.getConfig().register("commands.cmd_mention_max", "5");
    }
 
   private static boolean registerPermission(String name, boolean defaultReturn) {

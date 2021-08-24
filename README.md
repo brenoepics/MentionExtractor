@@ -13,14 +13,15 @@ with a message and your friend will receive it.
 - Mention in anywhere in the message [x]
 - Mention all friends with @friends [x] 
 - Mention everyone with @everyone [x] 
-- BlockMention Command [ ]
+- Mention more than one user in the same message [x]
+- BlockMention Command [TODO]
 
 <b>with this mention plugin, you can mention anyone without putting the @ at the beginning of the message, the @ can be anywhere</b>
 
 ## How can i install it?
 
  1. Download a pre-compiled version [MentionPlugin.jar](https://github.com/brenoepics/MentionPlugin/raw/master/target/MentionPlugin-2.0.jar)
- 2. Paste the MentionPlugin-2.0.jar file into your emulator's plugins folder and start/restart the emulator.
+ 2. Paste the MentionPlugin.jar file into your emulator's plugins folder and start/restart the emulator.
  3. Now you need to give permission for your users to use @mention, to do it open your database in the permissions table, and change the acc_mention, acc_mention_everyone and acc_mention_friends.
  4. Then, enter your hotel and type: :update_permissions or restart the emulator.
  5. Now just mention a friend or maybe everyone :)
@@ -47,6 +48,12 @@ Emulator_texts:
 | commands.cmd_mention.follow.enabled | 1 |
 | commands.cmd_mention.message.show_username.enabled | 1 |
 | commands.cmd_mention_everyone.follow.enabled | 1 |
+| commands.cmd_mention_regex | @(\\w+) |
+
+If you need to enable special characters modify the "commands.cmd_mention_regex", for example using this regex:  ```"@([\w'"!]+)"``` you can have ```!'"``` in your mention.
+
+https://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html?is-external=true
+
 
  Permissions:
   | Key | Default Value |
@@ -55,5 +62,5 @@ Emulator_texts:
 | acc_mention_friends | 0 |
 | acc_mention_everyone | 0 |
 
-        
+      Compile with dependencies ```mvn clean compile assembly:single```
 My Discord: BrenoEpic#9671
