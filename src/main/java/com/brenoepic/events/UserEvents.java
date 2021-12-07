@@ -1,6 +1,7 @@
 package com.brenoepic.events;
 
 import com.brenoepic.MentionPlugin;
+import com.brenoepic.logging.Message;
 import com.brenoepic.utils.Mention;
 
 import java.sql.Connection;
@@ -32,7 +33,8 @@ public class UserEvents implements EventListener {
 
                 boolean mentioned = Mention.run(sender, userMentioned, message);
                 if (mentioned) {
-                    //Logger service
+                    MentionPlugin.addMessage(new Message(sender.getHabboInfo().getId(), userMentioned, event.chatMessage.getMessage()));
+                //TODO Discord Logging
                 }
         }
         if (Emulator.getConfig().getBoolean("commands.cmd_mention.message.delete"))
