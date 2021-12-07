@@ -1,6 +1,8 @@
 package com.brenoepic.utils;
 
+import com.brenoepic.commands.BlockMentionCommand;
 import com.eu.habbo.Emulator;
+import com.eu.habbo.habbohotel.commands.CommandHandler;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,7 +18,9 @@ public class Extras {
     Emulator.getTexts().register("commands.cmd_mention.allfriends", "whole room");
     Emulator.getTexts().register("commands.cmd_mention.look", "${image.library.url}notifications/fig/%LOOK%.png");
     Emulator.getTexts().register("commands.cmd_mention_everyone.look", "${image.library.url}notifications/fig/%LOOK%.png");
-
+    Emulator.getTexts().register("commands.error.cmd_mention.user_blocksmention", "The user does not want to be mentioned.");
+    Emulator.getTexts().register("cmd_blockmention_keys", "blockmention;mentionsoff");
+    Emulator.getConfig().register("commands.description.cmd_blockmention", ":blockmention");
     Emulator.getConfig().register("commands.cmd_mention_friends.prefix", "friends");
     Emulator.getConfig().register("commands.cmd_mention.message.delete", "0");
     Emulator.getConfig().register("commands.cmd_mention.follow.enabled", "1");
@@ -29,6 +33,8 @@ public class Extras {
     Emulator.getConfig().register("mentionplugin.mode_everyone", "1");
     Emulator.getConfig().register("mentionplugin.mode_friends", "1");
     Emulator.getConfig().register("mentionplugin.mode_room", "2");
+
+    CommandHandler.addCommand(new BlockMentionCommand("cmd_blockmention", Emulator.getTexts().getValue("cmd_blockmention_keys").split(";")));
    }
 
   private static boolean registerPermission(String name, boolean defaultReturn) {

@@ -14,7 +14,7 @@ public class EmulatorLoad implements EventListener {
     public static void onEmulatorLoaded(EmulatorLoadedEvent event) throws IOException {
         Extras.loadTexts();
         Extras.checkDatabase();
-        Emulator.getPluginManager().registerEvents(MentionPlugin.INSTANCE, new MentionUser());
+        Emulator.getPluginManager().registerEvents(MentionPlugin.INSTANCE, new UserEvents());
         MentionPlugin.LOGGER.info("Mention Plugin has loaded!");
     }
 }

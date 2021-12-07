@@ -65,10 +65,17 @@ public class Mention {
             sender.whisper(Emulator.getTexts().getValue("commands.error.cmd_mention.not_self"));
             return false;
           }
-          if (user == null || user.getHabboStats().allowNameChange && !sender.getHabboInfo().getRank().hasPermission("acc_mention", true)) {
+          if (user == null || !sender.getHabboInfo().getRank().hasPermission("acc_mention", true)) {
             sender.whisper(Emulator.getTexts().getValue("commands.error.cmd_mention.user_not_found"));
             return false;
           }
+          if(user.getHabboStats().cache.getOrDefault("blockmention", "0") == "1"){
+            sender.whisper(Emulator.getTexts().getValue("commands.error.cmd_mention.user_blocksmention"));
+            return false;
+          }
+          if(user.getHabboStats().userIgnored(sender.getHabboInfo().getId()))
+            return false;
+
           Mention.send(user, message, MENTION_MODE);
           sender.whisper(Emulator.getTexts().getValue("commands.cmd_mention.message.sent"));
         }
