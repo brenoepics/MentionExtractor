@@ -25,6 +25,10 @@ public class Extras {
     Emulator.getConfig().register("commands.cmd_mention_regex", "@(\\w+)");
     Emulator.getConfig().register("commands.cmd_mention_max", "5");
     Emulator.getConfig().register("mentionplugin.sanitize", "1");
+    Emulator.getConfig().register("mentionplugin.mode_user", "1");
+    Emulator.getConfig().register("mentionplugin.mode_everyone", "1");
+    Emulator.getConfig().register("mentionplugin.mode_friends", "1");
+    Emulator.getConfig().register("mentionplugin.mode_room", "2");
    }
 
   private static boolean registerPermission(String name, boolean defaultReturn) {
@@ -42,8 +46,7 @@ public class Extras {
   }
 
   public static void checkDatabase() {
-    boolean reloadPermissions = false;
-    reloadPermissions = registerPermission("acc_mention", reloadPermissions);
+    boolean reloadPermissions = registerPermission("acc_mention", false);
     reloadPermissions = registerPermission("acc_mention_friends", reloadPermissions);
     reloadPermissions = registerPermission("acc_mention_everyone", reloadPermissions);
     reloadPermissions = registerPermission("acc_mention_room", reloadPermissions);

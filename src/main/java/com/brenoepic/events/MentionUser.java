@@ -25,7 +25,7 @@ public class MentionUser implements EventListener {
                 if (!Emulator.getConfig().getBoolean("commands.cmd_mention.message.show_username.enabled"))
                     message = event.chatMessage.getMessage().replaceFirst("@" + userMentioned, "");
 
-                boolean mentioned = Mention.send(sender, userMentioned, message);
+                boolean mentioned = Mention.run(sender, userMentioned, message);
                 if (mentioned) {
                     //Logger service
                 }
