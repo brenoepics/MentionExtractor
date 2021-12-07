@@ -13,6 +13,7 @@ public class Extras {
     Emulator.getTexts().register("commands.error.cmd_mention.user_not_found", "Sorry, I could not find the mentioned user.");
     Emulator.getTexts().register("commands.cmd_mention_everyone.message", "%SENDER% said: %MESSAGE%");
     Emulator.getTexts().register("commands.cmd_mention.allfriends", "all friends");
+    Emulator.getTexts().register("commands.cmd_mention.allfriends", "whole room");
     Emulator.getTexts().register("commands.cmd_mention.look", "${image.library.url}notifications/fig/%LOOK%.png");
     Emulator.getTexts().register("commands.cmd_mention_everyone.look", "${image.library.url}notifications/fig/%LOOK%.png");
 
@@ -23,6 +24,7 @@ public class Extras {
     Emulator.getConfig().register("commands.cmd_mention_everyone.follow.enabled", "1");
     Emulator.getConfig().register("commands.cmd_mention_regex", "@(\\w+)");
     Emulator.getConfig().register("commands.cmd_mention_max", "5");
+    Emulator.getConfig().register("mentionplugin.sanitize", "1");
    }
 
   private static boolean registerPermission(String name, boolean defaultReturn) {
@@ -44,7 +46,7 @@ public class Extras {
     reloadPermissions = registerPermission("acc_mention", reloadPermissions);
     reloadPermissions = registerPermission("acc_mention_friends", reloadPermissions);
     reloadPermissions = registerPermission("acc_mention_everyone", reloadPermissions);
-
+    reloadPermissions = registerPermission("acc_mention_room", reloadPermissions);
     if (reloadPermissions)
       Emulator.getGameEnvironment().getPermissionsManager().reload();
   }
