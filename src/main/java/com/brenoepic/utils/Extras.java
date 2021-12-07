@@ -34,6 +34,11 @@ public class Extras {
     Emulator.getConfig().register("mentionplugin.mode_friends", "1");
     Emulator.getConfig().register("mentionplugin.mode_room", "2");
 
+    Emulator.getConfig().register("mentionplugin.timeout_user", "10");
+    Emulator.getConfig().register("mentionplugin.timeout_everyone", "5");
+    Emulator.getConfig().register("mentionplugin.timeout_friends", "60");
+    Emulator.getConfig().register("mentionplugin.timeout_room", "20");
+
     CommandHandler.addCommand(new BlockMentionCommand("cmd_blockmention", Emulator.getTexts().getValue("cmd_blockmention_keys").split(";")));
    }
 

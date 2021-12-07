@@ -11,7 +11,7 @@ import java.io.IOException;
 
 public class EmulatorLoad implements EventListener {
     @EventHandler
-    public static void onEmulatorLoaded(EmulatorLoadedEvent event) throws IOException {
+    public static void onEmulatorLoaded(EmulatorLoadedEvent event) {
         Extras.loadTexts();
         Extras.checkDatabase();
         Emulator.getPluginManager().registerEvents(MentionPlugin.INSTANCE, new UserEvents());
