@@ -7,14 +7,13 @@ import com.eu.habbo.plugin.EventHandler;
 import com.eu.habbo.plugin.EventListener;
 import com.eu.habbo.plugin.events.emulator.EmulatorLoadedEvent;
 
-import java.io.IOException;
 
 public class EmulatorLoad implements EventListener {
     @EventHandler
     public static void onEmulatorLoaded(EmulatorLoadedEvent event) {
-        Extras.loadTexts();
         Extras.checkDatabase();
+        Extras.loadTexts();
         Emulator.getPluginManager().registerEvents(MentionPlugin.INSTANCE, new UserEvents());
-        MentionPlugin.LOGGER.info("Mention Plugin has loaded!");
+        MentionPlugin.LOGGER.info("[MENTION-PLUGIN 2.2] successfully loaded!");
     }
 }

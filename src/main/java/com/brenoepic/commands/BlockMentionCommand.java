@@ -14,14 +14,14 @@ public class BlockMentionCommand extends Command
     }
 
     public boolean handle(final GameClient gameClient, final String[] strings){
-        final String blockmention = (String) gameClient.getHabbo().getHabboStats().cache.get("blockmention");
+        final boolean blockmention = (boolean) gameClient.getHabbo().getHabboStats().cache.get("blockmention");
 
-        if (Objects.equals(blockmention, "0")) {
+        if (!blockmention) {
             gameClient.getHabbo().whisper(Emulator.getTexts().getValue("commands.cmd_mention.success.off"));
-            gameClient.getHabbo().getHabboStats().cache.put("blockmention", "1");
+            gameClient.getHabbo().getHabboStats().cache.put("blockmention", true);
         } else {
             gameClient.getHabbo().whisper(Emulator.getTexts().getValue("commands.cmd_mention.success.on"));
-            gameClient.getHabbo().getHabboStats().cache.put("blockmention", "0");
+            gameClient.getHabbo().getHabboStats().cache.put("blockmention", false);
         }
         return true;
     }

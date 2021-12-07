@@ -4,15 +4,10 @@ import com.brenoepic.events.EmulatorLoad;
 import com.brenoepic.timeout.MentionTimeout;
 import com.eu.habbo.Emulator;
 import com.eu.habbo.habbohotel.users.Habbo;
-import com.eu.habbo.plugin.EventHandler;
 import com.eu.habbo.plugin.EventListener;
 import com.eu.habbo.plugin.HabboPlugin;
-import com.eu.habbo.plugin.events.emulator.EmulatorLoadedEvent;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.sql.SQLException;
 
 
 public class MentionPlugin extends HabboPlugin implements EventListener {

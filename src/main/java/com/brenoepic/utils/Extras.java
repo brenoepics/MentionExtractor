@@ -20,6 +20,8 @@ public class Extras {
     Emulator.getTexts().register("commands.cmd_mention_everyone.look", "${image.library.url}notifications/fig/%LOOK%.png");
     Emulator.getTexts().register("commands.error.cmd_mention.user_blocksmention", "The user does not want to be mentioned.");
     Emulator.getTexts().register("cmd_blockmention_keys", "blockmention;mentionsoff");
+    Emulator.getTexts().register("commands.cmd_mention.success.off", "Mentions disabled!");
+    Emulator.getTexts().register("commands.cmd_mention.success.on", "Mentions enabled!");
     Emulator.getConfig().register("commands.description.cmd_blockmention", ":blockmention");
     Emulator.getConfig().register("commands.cmd_mention_friends.prefix", "friends");
     Emulator.getConfig().register("commands.cmd_mention.message.delete", "0");
@@ -40,8 +42,18 @@ public class Extras {
     Emulator.getConfig().register("mentionplugin.timeout_room", "20");
 
     CommandHandler.addCommand(new BlockMentionCommand("cmd_blockmention", Emulator.getTexts().getValue("cmd_blockmention_keys").split(";")));
-   }
+    Extras.registerUsersField("blockmentions", "ENUM ('0', '1')", "0");
+  }
 
+  private static void registerUsersField(final String field, final String type, final String defaultValue) {
+    try (final Connection connection = Emulator.getDatabase().getDataSource().getConnection();
+         final PreparedStatement statement = connection.prepareStatement("ALTER TABLE `users` ADD `" + field + "` " + type + " NOT NULL DEFAULT '" + defaultValue + "'")) {
+      statement.execute();
+    }
+    catch (SQLException sql) {
+      //To do (when the stable version of the arcturus has a function to add a field I will change this method)
+    }
+  }
   private static boolean registerPermission(String name, boolean defaultReturn) {
     try (Connection connection = Emulator.getDatabase().getDataSource().getConnection()) {
       try (PreparedStatement statement = connection.prepareStatement("ALTER TABLE  `permissions` ADD  `" + name + "` ENUM('0', '1') NOT NULL DEFAULT '0'")) {
