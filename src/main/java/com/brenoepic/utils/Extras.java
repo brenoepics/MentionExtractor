@@ -31,7 +31,8 @@ public class Extras {
     Emulator.getTexts().register("commands.description.cmd_blockmention", ":blockmention");
     Emulator.getTexts().register("mentionplugin.timeout_message", "You should wait more %time% seconds to mention again!");
     Emulator.getConfig().register("commands.cmd_mention_friends.prefix", "friends");
-    Emulator.getConfig().register("commands.cmd_mention.message.delete", "0");
+    Emulator.getConfig().register("commands.cmd_mention.message_error.delete", "1");
+    Emulator.getConfig().register("commands.cmd_mention.message_success.delete", "0");
     Emulator.getConfig().register("commands.cmd_mention.follow.enabled", "1");
     Emulator.getConfig().register("commands.cmd_mention.message.show_username.enabled", "1");
     Emulator.getConfig().register("commands.cmd_mention_everyone.follow.enabled", "1");

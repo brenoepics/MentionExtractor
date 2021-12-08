@@ -33,12 +33,16 @@ public class UserEvents implements EventListener {
 
                 boolean mentioned = Mention.run(sender, userMentioned, message);
                 if (mentioned) {
+                    if (Emulator.getConfig().getBoolean("commands.cmd_mention.message_success.delete"))
+                        event.setCancelled(true);
                     MentionPlugin.addMessage(new Message(sender.getHabboInfo().getId(), userMentioned, event.chatMessage.getMessage()));
                 //TODO Discord Logging
+                }else{
+                    if (Emulator.getConfig().getBoolean("commands.cmd_mention.message_error.delete"))
+                        event.setCancelled(true);
                 }
         }
-        if (Emulator.getConfig().getBoolean("commands.cmd_mention.message.delete"))
-            event.setCancelled(true);
+
     }
   }
 
