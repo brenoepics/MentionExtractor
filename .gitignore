@@ -6,3 +6,6 @@ target/*
 #Don't ignore jar
 !/target/MentionPlugin-*-jar-with-dependencies.jar
 
+*.class
+target/classes/plugin.json
+target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst
