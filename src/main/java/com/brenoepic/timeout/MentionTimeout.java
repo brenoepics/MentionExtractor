@@ -14,7 +14,7 @@ public class MentionTimeout {
     public void dispose() {
         this.users.clear();
     }
-    public boolean CanMention(long user) {
+    public boolean canMention(int user) {
         for (Entry < Integer, Timeout > usr: this.users.entrySet()) {
             Timeout u = usr.getValue();
             if (u.getId() == user) {
@@ -28,6 +28,20 @@ public class MentionTimeout {
             }
         }
         return true;
+    }
+    public Duration getTimeout(int user){
+        for (Entry < Integer, Timeout > usr: this.users.entrySet()) {
+            Timeout u = usr.getValue();
+            if (u.getId() == user) {
+                if (Duration.between(u.getFinish(), Instant.now()).isNegative()) {
+                    return Duration.between(u.getFinish(), Instant.now());
+                } else {
+                    this.users.remove(usr.getKey());
+                    return null;
+                }
+            }
+        }
+        return null;
     }
     public void Add(int user, int time) {
         this.users.put(

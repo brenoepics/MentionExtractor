@@ -25,8 +25,8 @@ public class Mention {
 
   public static THashMap<String, String> mention;
   public static boolean run(Habbo sender, String receiver, String message) {
-    if(!MentionPlugin.getTimeout().CanMention(sender.getHabboInfo().getId())){
-      sender.whisper(Emulator.getTexts().getValue("mentionplugin.timeout_message").replace("%time%", "5"));
+    if(!MentionPlugin.getTimeout().canMention(sender.getHabboInfo().getId())){
+      sender.whisper(Emulator.getTexts().getValue("mentionplugin.timeout_message").replace("%time%", String.valueOf(MentionPlugin.getTimeout().getTimeout(sender.getHabboInfo().getId()).getSeconds())));
       return false;
     }
     mention = Functions.BubbleAlert(sender, message);
