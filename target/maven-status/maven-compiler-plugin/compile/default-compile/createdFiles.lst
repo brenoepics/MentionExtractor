@@ -1,7 +1,0 @@
-com\brenoepic\utils\Mention.class
-com\brenoepic\events\EmulatorLoad.class
-com\brenoepic\utils\Functions.class
-com\brenoepic\commands\BlockMentionCommand.class
-com\brenoepic\utils\Extras.class
-com\brenoepic\MentionPlugin.class
-com\brenoepic\events\MentionUser.class
