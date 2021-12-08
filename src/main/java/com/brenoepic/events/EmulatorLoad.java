@@ -24,7 +24,7 @@ public class EmulatorLoad implements EventListener {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                if(MentionPlugin.getMessages().size() > 0)
+                if(MentionPlugin.getMessages() != null)
                 DatabaseLogger.save(MentionPlugin.getMessages());
             }
         }, 0, Emulator.getConfig().getInt("mentionplugin.database.save_timeout", 5000));
