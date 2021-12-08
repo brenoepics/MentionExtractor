@@ -86,7 +86,7 @@ public class Mention {
 
           Mention.send(user, Emulator.getTexts().getValue("commands.cmd_mention.message").replace("%MESSAGE%", message).replace("%SENDER%", sender.getHabboInfo().getUsername()), MENTION_MODE);
           MentionPlugin.getTimeout().Add(sender.getHabboInfo().getId(), MENTION_TIMEOUT);
-          sender.whisper(Emulator.getTexts().getValue("commands.cmd_mention.message.sent").replace("%receiver%", user.getHabboInfo().getUsername()));
+          sender.whisper(Emulator.getTexts().getValue("commands.cmd_mention.message.sent").replace("%RECEIVER%", user.getHabboInfo().getUsername()));
         }
     }
     return true;
