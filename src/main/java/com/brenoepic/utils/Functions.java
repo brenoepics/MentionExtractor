@@ -43,8 +43,6 @@ public class Functions {
         if (room != null && Emulator.getConfig().getBoolean("commands.cmd_mention_everyone.follow.enabled")) {
             notification.put("linkUrl", "event:navigator/goto/" + sender.getHabboInfo().getCurrentRoom().getId());
         }
-
-        notification.put("message", message);
         return notification;
     }
 }

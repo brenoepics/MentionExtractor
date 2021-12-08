@@ -3,12 +3,14 @@ package com.brenoepic.utils;
 import com.brenoepic.MentionPlugin;
 import com.eu.habbo.Emulator;
 import com.eu.habbo.habbohotel.messenger.MessengerBuddy;
+import com.eu.habbo.habbohotel.rooms.Room;
 import com.eu.habbo.habbohotel.users.Habbo;
 import com.eu.habbo.messages.outgoing.generic.alerts.BubbleAlertComposer;
 import gnu.trove.map.hash.THashMap;
 
 import java.util.Arrays;
 import java.util.Map;
+import java.util.Objects;
 
 public class Mention {
   public static String[] FRIENDS_PREFIX = Emulator.getConfig().getValue("commands.cmd_mention_friends.prefix", "friends;friends").split(";");
@@ -16,7 +18,6 @@ public class Mention {
   public static int MENTION_MODE = Emulator.getConfig().getInt("mentionplugin.mode_user", 1);
   public static int EVERYONE_MODE = Emulator.getConfig().getInt("mentionplugin.mode_everyone", 1);
   public static int FRIENDS_MODE = Emulator.getConfig().getInt("mentionplugin.mode_friends", 1);
-  public static int ROOM_MODE = Emulator.getConfig().getInt("mentionplugin.mode_room", 1);
 
   public static int MENTION_TIMEOUT = Emulator.getConfig().getInt("mentionplugin.timeout_user", 10);
   public static int EVERYONE_TIMEOUT = Emulator.getConfig().getInt("mentionplugin.timeout_everyone", 10);
@@ -38,7 +39,7 @@ public class Mention {
             Habbo user = set.getValue();
             if (user.getHabboStats().blockStaffAlerts)
               continue;
-            Mention.send(user, Emulator.getTexts().getValue("commands.cmd_mention_everyone.message").replace("%MESSAGE%", message).replace("%SENDER%", sender.getHabboInfo().getUsername()), EVERYONE_MODE);
+            Mention.send(user, sender, Emulator.getTexts().getValue("commands.cmd_mention_everyone.message").replace("%MESSAGE%", message).replace("%SENDER%", sender.getHabboInfo().getUsername()), EVERYONE_MODE, "everyone");
           }
           MentionPlugin.getTimeout().Add(sender.getHabboInfo().getId(), EVERYONE_TIMEOUT);
           sender.whisper(Emulator.getTexts().getValue("commands.cmd_mention.message.sent").replace("%RECEIVER%", "everyone"));
@@ -46,12 +47,7 @@ public class Mention {
         break;
       case "room":
         if (sender.getHabboInfo().getRank().hasPermission("acc_mention_room", true)) {
-          for (Habbo user : sender.getRoomUnit().getRoom().getHabbos()) {
-
-            if (user == null)
-              continue;
-            Mention.send(user, Emulator.getTexts().getValue("commands.cmd_mention_room.message").replace("%MESSAGE%", message).replace("%SENDER%", sender.getHabboInfo().getUsername()), ROOM_MODE);
-          }
+          Mention.send(null, sender, Emulator.getTexts().getValue("commands.cmd_mention_room.message").replace("%MESSAGE%", message).replace("%SENDER%", sender.getHabboInfo().getUsername()), 1, "room");
           sender.whisper(Emulator.getTexts().getValue("commands.cmd_mention.message.sent").replace("%RECEIVER%", Emulator.getTexts().getValue("commands.cmd_mention.room", "room")));
           MentionPlugin.getTimeout().Add(sender.getHabboInfo().getId(), ROOM_TIMEOUT);
         }
@@ -62,7 +58,7 @@ public class Mention {
             Habbo user = Emulator.getGameEnvironment().getHabboManager().getHabbo(player.getId());
             if (player.getOnline() == 0 || user == null || user.getHabboStats().blockRoomInvites)
               continue;
-            Mention.send(user, Emulator.getTexts().getValue("commands.cmd_mention_friends.message").replace("%MESSAGE%", message).replace("%SENDER%", sender.getHabboInfo().getUsername()), FRIENDS_MODE);
+            Mention.send(user, sender, Emulator.getTexts().getValue("commands.cmd_mention_friends.message").replace("%MESSAGE%", message).replace("%SENDER%", sender.getHabboInfo().getUsername()), FRIENDS_MODE, "friends");
           }
           sender.whisper(Emulator.getTexts().getValue("commands.cmd_mention.message.sent").replace("%RECEIVER%", Emulator.getTexts().getValue("commands.cmd_mention.allfriends")));
           MentionPlugin.getTimeout().Add(sender.getHabboInfo().getId(), FRIENDS_TIMEOUT);
@@ -84,7 +80,7 @@ public class Mention {
           if(user.getHabboStats().userIgnored(sender.getHabboInfo().getId()))
             return false;
 
-          Mention.send(user, Emulator.getTexts().getValue("commands.cmd_mention.message").replace("%MESSAGE%", message).replace("%SENDER%", sender.getHabboInfo().getUsername()), MENTION_MODE);
+          Mention.send(user, sender, Emulator.getTexts().getValue("commands.cmd_mention.message").replace("%MESSAGE%", message).replace("%SENDER%", sender.getHabboInfo().getUsername()), MENTION_MODE, "user");
           MentionPlugin.getTimeout().Add(sender.getHabboInfo().getId(), MENTION_TIMEOUT);
           sender.whisper(Emulator.getTexts().getValue("commands.cmd_mention.message.sent").replace("%RECEIVER%", user.getHabboInfo().getUsername()));
         }
@@ -92,10 +88,21 @@ public class Mention {
     return true;
   }
 
-  public static void send(Habbo receiver, String message, int mode ) {
+  public static void send(Habbo receiver, Habbo sender, String message, int mode, String type ) {
+    if(Objects.equals(type, "room")){
+      Room room = sender.getHabboInfo().getCurrentRoom();
+
+      if (room != null) {
+        mention.put("message", message);
+        room.sendComposer(new BubbleAlertComposer("mention", mention).compose());
+
+      }
+      return;
+    }
     switch (mode) {
       case 1:
-        receiver.getClient().sendResponse(new BubbleAlertComposer("mention", mention));
+          mention.put("message", message);
+          receiver.getClient().sendResponse(new BubbleAlertComposer("mention", mention));
         break;
       case 2:
         receiver.whisper(message);

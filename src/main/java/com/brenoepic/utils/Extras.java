@@ -42,7 +42,6 @@ public class Extras {
     Emulator.getConfig().register("mentionplugin.mode_user", "1");
     Emulator.getConfig().register("mentionplugin.mode_everyone", "1");
     Emulator.getConfig().register("mentionplugin.mode_friends", "1");
-    Emulator.getConfig().register("mentionplugin.mode_room", "2");
 
     Emulator.getConfig().register("mentionplugin.timeout_user", "10");
     Emulator.getConfig().register("mentionplugin.timeout_everyone", "5");
