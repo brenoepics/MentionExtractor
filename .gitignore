@@ -1,7 +1,8 @@
 
 .idea/
 #Ignore everything in target folder
-/target/*
+target/*
 
 #Don't ignore jar
 !/target/MentionPlugin-*-jar-with-dependencies.jar
+
