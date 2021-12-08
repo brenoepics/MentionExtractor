@@ -49,7 +49,7 @@ public class Extras {
     Emulator.getConfig().register("mentionplugin.timeout_room", "20");
 
     Emulator.getConfig().register("mentionplugin.logging_database", "1");
-    Emulator.getConfig().register("mentionplugin.database.log_timeout", "120000");
+    Emulator.getConfig().register("mentionplugin.database.log_timeout_minutes", "30");
 
     CommandHandler.addCommand(new BlockMentionCommand("cmd_blockmention", Emulator.getTexts().getValue("cmd_blockmention_keys").split(";")));
 
