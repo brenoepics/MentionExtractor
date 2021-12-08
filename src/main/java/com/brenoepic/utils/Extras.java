@@ -17,6 +17,8 @@ public class Extras {
     Emulator.getTexts().register("commands.cmd_mention.message.sent", "You mentioned %RECEIVER% successfully!");
     Emulator.getTexts().register("commands.error.cmd_mention.user_not_found", "Sorry, I could not find the mentioned user.");
     Emulator.getTexts().register("commands.cmd_mention_everyone.message", "%SENDER% said: %MESSAGE%");
+    Emulator.getTexts().register("commands.cmd_mention_friends.message", "%SENDER% said: %MESSAGE%");
+    Emulator.getTexts().register("commands.cmd_mention_room.message", "%SENDER% said: %MESSAGE%");
     Emulator.getTexts().register("commands.cmd_mention.allfriends", "all friends");
     Emulator.getTexts().register("commands.cmd_mention.allfriends", "whole room");
     Emulator.getTexts().register("commands.cmd_mention.look", "${image.library.url}notifications/fig/%LOOK%.png");
