@@ -11,6 +11,7 @@ import gnu.trove.map.hash.THashMap;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 
 public class Mention {
   public static String[] FRIENDS_PREFIX = Emulator.getConfig().getValue("commands.cmd_mention_friends.prefix", "friends;friends").split(";");
@@ -25,12 +26,8 @@ public class Mention {
   public static int ROOM_TIMEOUT = Emulator.getConfig().getInt("mentionplugin.timeout_room", 10);
 
   public static THashMap<String, String> mention;
-  public static boolean run(Habbo sender, String receiver, String message) {
-    if(!MentionPlugin.getTimeout().canMention(sender.getHabboInfo().getId())){
-      sender.whisper(Emulator.getTexts().getValue("mentionplugin.timeout_message").replace("%time%", String.valueOf(MentionPlugin.getTimeout().getTimeout(sender.getHabboInfo().getId()).getSeconds()* (-1))));
-      return false;
-    }
-    mention = Functions.BubbleAlert(sender, message);
+  public static boolean custom(Habbo sender, String receiver, String message){
+    if (canMention(sender, message)) return false;
 
     switch (receiver) {
       case "everyone":
@@ -62,30 +59,46 @@ public class Mention {
           }
           sender.whisper(Emulator.getTexts().getValue("commands.cmd_mention.message.sent").replace("%RECEIVER%", Emulator.getTexts().getValue("commands.cmd_mention.allfriends")));
           MentionPlugin.getTimeout().Add(sender.getHabboInfo().getId(), FRIENDS_TIMEOUT);
-        } else {
-          Habbo user = Emulator.getGameEnvironment().getHabboManager().getHabbo(receiver);
-          if (user == null || !sender.getHabboInfo().getRank().hasPermission("acc_mention", true)) {
-            sender.whisper(Emulator.getTexts().getValue("commands.error.cmd_mention.user_not_found"));
-            return false;
-          }
-          if (sender.getHabboInfo().getUsername().equals(user.getHabboInfo().getUsername())) {
-            sender.whisper(Emulator.getTexts().getValue("commands.error.cmd_mention.not_self"));
-            return false;
-          }
-
-          if((boolean) user.getHabboStats().cache.get("blockmention")){
-            sender.whisper(Emulator.getTexts().getValue("commands.error.cmd_mention.user_blocksmention"));
-            return false;
-          }
-          if(user.getHabboStats().userIgnored(sender.getHabboInfo().getId()))
-            return false;
-
-          Mention.send(user, sender, Emulator.getTexts().getValue("commands.cmd_mention.message").replace("%MESSAGE%", message).replace("%SENDER%", sender.getHabboInfo().getUsername()), MENTION_MODE, "user");
-          MentionPlugin.getTimeout().Add(sender.getHabboInfo().getId(), MENTION_TIMEOUT);
-          sender.whisper(Emulator.getTexts().getValue("commands.cmd_mention.message.sent").replace("%RECEIVER%", user.getHabboInfo().getUsername()));
         }
     }
     return true;
+  }
+  public static boolean user(Habbo sender, Set<String> users, String message) {
+    if (canMention(sender, message)) return false;
+
+    for (String receiver : users) {
+      Habbo user = Emulator.getGameEnvironment().getHabboManager().getHabbo(receiver);
+      if (user == null || !sender.getHabboInfo().getRank().hasPermission("acc_mention", true)) {
+        sender.whisper(Emulator.getTexts().getValue("commands.error.cmd_mention.user_not_found"));
+        return false;
+      }
+      if (sender.getHabboInfo().getUsername().equals(user.getHabboInfo().getUsername())) {
+        sender.whisper(Emulator.getTexts().getValue("commands.error.cmd_mention.not_self"));
+        return false;
+      }
+
+      if ((boolean) user.getHabboStats().cache.get("blockmention")) {
+        sender.whisper(Emulator.getTexts().getValue("commands.error.cmd_mention.user_blocksmention"));
+        return false;
+      }
+      if (user.getHabboStats().userIgnored(sender.getHabboInfo().getId()))
+        return false;
+
+      Mention.send(user, sender, Emulator.getTexts().getValue("commands.cmd_mention.message").replace("%MESSAGE%", message).replace("%SENDER%", sender.getHabboInfo().getUsername()), MENTION_MODE, "user");
+    }
+    MentionPlugin.getTimeout().Add(sender.getHabboInfo().getId(), MENTION_TIMEOUT);
+    sender.whisper(Emulator.getTexts().getValue("commands.cmd_mention.message.sent"));
+
+    return true;
+  }
+
+  private static boolean canMention(Habbo sender, String message) {
+    if(!MentionPlugin.getTimeout().canMention(sender.getHabboInfo().getId())){
+      sender.whisper(Emulator.getTexts().getValue("mentionplugin.timeout_message").replace("%time%", String.valueOf(MentionPlugin.getTimeout().getTimeout(sender.getHabboInfo().getId()).getSeconds()* (-1))));
+      return true;
+    }
+    mention = Functions.BubbleAlert(sender, message);
+    return false;
   }
 
   public static void send(Habbo receiver, Habbo sender, String message, int mode, String type ) {

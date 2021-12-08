@@ -14,7 +14,7 @@ public class Extras {
   public static void loadTexts() {
     Emulator.getTexts().register("commands.error.cmd_mention.not_self", "You cannot mention yourself");
     Emulator.getTexts().register("commands.cmd_mention.message", "%SENDER% said: %MESSAGE%");
-    Emulator.getTexts().register("commands.cmd_mention.message.sent", "You mentioned %RECEIVER% successfully!");
+    Emulator.getTexts().register("commands.cmd_mention.message.sent", "Mention successfully sent!");
     Emulator.getTexts().register("commands.error.cmd_mention.user_not_found", "Sorry, I could not find the mentioned user.");
     Emulator.getTexts().register("commands.cmd_mention_everyone.message", "%SENDER% said: %MESSAGE%");
     Emulator.getTexts().register("commands.cmd_mention_friends.message", "%SENDER% said: %MESSAGE%");

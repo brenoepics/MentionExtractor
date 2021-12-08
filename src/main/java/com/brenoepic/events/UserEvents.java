@@ -8,7 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Set;
+import java.util.*;
 
 import com.brenoepic.utils.Functions;
 import com.eu.habbo.Emulator;
@@ -25,23 +25,44 @@ public class UserEvents implements EventListener {
   public static void onUserTalkEvent(UserTalkEvent event){
     Set<String> GetMention = Functions.getUserMentionedFromChat(event.chatMessage.getMessage());
     if (!GetMention.isEmpty()) {
-        for (String userMentioned : GetMention) {
-            String message = event.chatMessage.getMessage();
-            Habbo sender = event.chatMessage.getHabbo();
-                if (!Emulator.getConfig().getBoolean("commands.cmd_mention.message.show_username.enabled"))
-                    message = event.chatMessage.getMessage().replaceFirst("@" + userMentioned, "");
+        boolean mentioned;
+        String message = event.chatMessage.getMessage();
+        Habbo sender = event.chatMessage.getHabbo();
+        if (!Emulator.getConfig().getBoolean("commands.cmd_mention.message.show_username.enabled"))
+            message = event.chatMessage.getMessage().replace("@" + GetMention, "");
 
-                boolean mentioned = Mention.run(sender, userMentioned, message);
+        Set<String> no = Collections.singleton("everyone");
+        no.add("room");
+        no.addAll(Arrays.asList(Mention.FRIENDS_PREFIX));
+        if(GetMention.contains(no)){
+            mentioned = Mention.custom(sender, GetMention.iterator().next(), message);
+            if (mentioned) {
+                if (Emulator.getConfig().getBoolean("commands.cmd_mention.message_success.delete"))
+                    event.setCancelled(true);
+                MentionPlugin.addMessage(new Message(sender.getHabboInfo().getId(), GetMention.iterator().next(), event.chatMessage.getMessage()));
+                //TODO Discord Logging
+            }else{
+                if (Emulator.getConfig().getBoolean("commands.cmd_mention.message_error.delete"))
+                    event.setCancelled(true);
+            }
+            GetMention.removeAll(no);
+        }
+
+
+
+                mentioned = Mention.user(sender, GetMention, message);
                 if (mentioned) {
                     if (Emulator.getConfig().getBoolean("commands.cmd_mention.message_success.delete"))
                         event.setCancelled(true);
+                    for (String userMentioned : GetMention) {
                     MentionPlugin.addMessage(new Message(sender.getHabboInfo().getId(), userMentioned, event.chatMessage.getMessage()));
+                    }
                 //TODO Discord Logging
                 }else{
                     if (Emulator.getConfig().getBoolean("commands.cmd_mention.message_error.delete"))
                         event.setCancelled(true);
                 }
-        }
+
 
     }
   }

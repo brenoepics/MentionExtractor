@@ -4,7 +4,6 @@ import com.brenoepic.logging.DatabaseLogger;
 import com.eu.habbo.Emulator;
 import com.brenoepic.MentionPlugin;
 import com.brenoepic.utils.Extras;
-import com.eu.habbo.database.Database;
 import com.eu.habbo.plugin.EventHandler;
 import com.eu.habbo.plugin.EventListener;
 import com.eu.habbo.plugin.events.emulator.EmulatorLoadedEvent;
