@@ -27,6 +27,6 @@ public class EmulatorLoad implements EventListener {
                 if(MentionPlugin.getMessages() != null)
                 DatabaseLogger.save(MentionPlugin.getMessages());
             }
-        }, 0, Emulator.getConfig().getInt("mentionplugin.database.save_timeout", 5000));
+        }, 0, Emulator.getConfig().getInt("mentionplugin.database.log_timeout", 120000));
     }
 }

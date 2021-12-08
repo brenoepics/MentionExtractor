@@ -7,6 +7,9 @@ import com.eu.habbo.habbohotel.commands.CommandHandler;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+
+import static com.brenoepic.MentionPlugin.LOGGER;
+
 public class Extras {
   public static void loadTexts() {
     Emulator.getTexts().register("commands.error.cmd_mention.not_self", "You cannot mention yourself");
@@ -41,24 +44,25 @@ public class Extras {
     Emulator.getConfig().register("mentionplugin.timeout_friends", "60");
     Emulator.getConfig().register("mentionplugin.timeout_room", "20");
 
-    Emulator.getConfig().register("mentionplugin.database.save_timeout", "60");
+    Emulator.getConfig().register("mentionplugin.logging_database", "1");
+    Emulator.getConfig().register("mentionplugin.database.log_timeout", "120000");
 
     CommandHandler.addCommand(new BlockMentionCommand("cmd_blockmention", Emulator.getTexts().getValue("cmd_blockmention_keys").split(";")));
-    Extras.registerUsersField("blockmentions", "ENUM ('0', '1')", "0");
+
   }
 
-  private static void registerUsersField(final String field, final String type, final String defaultValue) {
+  private static void registerSettingField(final String field, final String type, final String defaultValue) {
     try (final Connection connection = Emulator.getDatabase().getDataSource().getConnection();
-         final PreparedStatement statement = connection.prepareStatement("ALTER TABLE `users` ADD `" + field + "` " + type + " NOT NULL DEFAULT '" + defaultValue + "'")) {
+         final PreparedStatement statement = connection.prepareStatement("ALTER TABLE `users_settings` ADD `" + field + "` " + type + " NOT NULL DEFAULT '" + defaultValue + "'")) {
       statement.execute();
     }
     catch (SQLException sql) {
       //To do (when the stable version of the arcturus has a function to add a field I will change this method)
     }
   }
-  private static boolean registerPermission(String name, boolean defaultReturn) {
+  private static boolean registerPermission(String name, String defaultValue, boolean defaultReturn) {
     try (Connection connection = Emulator.getDatabase().getDataSource().getConnection()) {
-      try (PreparedStatement statement = connection.prepareStatement("ALTER TABLE  `permissions` ADD  `" + name + "` ENUM('0', '1') NOT NULL DEFAULT '0'")) {
+      try (PreparedStatement statement = connection.prepareStatement("ALTER TABLE  `permissions` ADD  `" + name + "` ENUM('0', '1') NOT NULL DEFAULT "+ defaultValue)) {
         statement.execute();
         return true;
       }
@@ -71,10 +75,12 @@ public class Extras {
   }
 
   public static void checkDatabase() {
-    boolean reloadPermissions = registerPermission("acc_mention", false);
-    reloadPermissions = registerPermission("acc_mention_friends", reloadPermissions);
-    reloadPermissions = registerPermission("acc_mention_everyone", reloadPermissions);
-    reloadPermissions = registerPermission("acc_mention_room", reloadPermissions);
+    registerSettingField("blockmentions", "ENUM ('0', '1')", "0");
+    boolean reloadPermissions = registerPermission("acc_mention", "1", false);
+    reloadPermissions = registerPermission("acc_mention_friends", "1", reloadPermissions);
+    reloadPermissions = registerPermission("acc_mention_everyone", "0", reloadPermissions);
+    reloadPermissions = registerPermission("acc_mention_room", "1", reloadPermissions);
+    reloadPermissions = registerPermission("cmd_blockmention", "1", reloadPermissions);
     if (reloadPermissions)
       Emulator.getGameEnvironment().getPermissionsManager().reload();
   }

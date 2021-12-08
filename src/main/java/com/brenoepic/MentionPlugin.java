@@ -11,6 +11,7 @@ import com.eu.habbo.plugin.HabboPlugin;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -24,6 +25,7 @@ public class MentionPlugin extends HabboPlugin implements EventListener {
         INSTANCE = this;
         Emulator.getPluginManager().registerEvents(this, new EmulatorLoad());
         this.timeout = new MentionTimeout();
+        this.messages = new ArrayList<Message>();
     }
 
     public void onDisable(){
