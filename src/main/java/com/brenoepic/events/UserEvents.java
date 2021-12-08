@@ -19,6 +19,8 @@ import com.eu.habbo.plugin.events.users.UserDisconnectEvent;
 import com.eu.habbo.plugin.events.users.UserLoginEvent;
 import com.eu.habbo.plugin.events.users.UserTalkEvent;
 
+import static com.brenoepic.MentionPlugin.LOGGER;
+
 
 public class UserEvents implements EventListener {
   @EventHandler
@@ -31,10 +33,8 @@ public class UserEvents implements EventListener {
         if (!Emulator.getConfig().getBoolean("commands.cmd_mention.message.show_username.enabled"))
             message = event.chatMessage.getMessage().replace("@" + GetMention, "");
 
-        Set<String> no = Collections.singleton("everyone");
-        no.add("room");
-        no.addAll(Arrays.asList(Mention.FRIENDS_PREFIX));
-        if(GetMention.contains(no)){
+
+        if(GetMention.iterator().next().equals("everyone") || GetMention.iterator().next().equals("room") || Arrays.asList(Mention.FRIENDS_PREFIX).contains(GetMention.iterator().next())){
             mentioned = Mention.custom(sender, GetMention.iterator().next(), message);
             if (mentioned) {
                 if (Emulator.getConfig().getBoolean("commands.cmd_mention.message_success.delete"))
@@ -45,11 +45,8 @@ public class UserEvents implements EventListener {
                 if (Emulator.getConfig().getBoolean("commands.cmd_mention.message_error.delete"))
                     event.setCancelled(true);
             }
-            GetMention.removeAll(no);
+            return;
         }
-
-
-
                 mentioned = Mention.user(sender, GetMention, message);
                 if (mentioned) {
                     if (Emulator.getConfig().getBoolean("commands.cmd_mention.message_success.delete"))
@@ -80,7 +77,7 @@ public class UserEvents implements EventListener {
               }
           }
           catch (SQLException e) {
-              MentionPlugin.LOGGER.error("[MentionPlugin]", e);
+              LOGGER.error("[MentionPlugin]", e);
           }
       }else{
           event.habbo.getHabboStats().cache.put("blockmention", false);

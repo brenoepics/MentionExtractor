@@ -61,7 +61,7 @@ public class Mention {
           MentionPlugin.getTimeout().Add(sender.getHabboInfo().getId(), FRIENDS_TIMEOUT);
         }
     }
-    return true;
+    return false;
   }
   public static boolean user(Habbo sender, Set<String> users, String message) {
     if (canMention(sender, message)) return false;
@@ -69,7 +69,11 @@ public class Mention {
     for (String receiver : users) {
       Habbo user = Emulator.getGameEnvironment().getHabboManager().getHabbo(receiver);
       if (user == null || !sender.getHabboInfo().getRank().hasPermission("acc_mention", true)) {
-        sender.whisper(Emulator.getTexts().getValue("commands.error.cmd_mention.user_not_found"));
+
+        if(users.size() == 1)
+          sender.whisper(Emulator.getTexts().getValue("commands.error.cmd_mention.user_not_found"));
+          else
+          sender.whisper(Emulator.getTexts().getValue("commands.error.cmd_mention.users_not_found"));
         return false;
       }
       if (sender.getHabboInfo().getUsername().equals(user.getHabboInfo().getUsername())) {
