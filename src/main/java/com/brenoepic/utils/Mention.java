@@ -26,7 +26,7 @@ public class Mention {
   public static THashMap<String, String> mention;
   public static boolean run(Habbo sender, String receiver, String message) {
     if(!MentionPlugin.getTimeout().canMention(sender.getHabboInfo().getId())){
-      sender.whisper(Emulator.getTexts().getValue("mentionplugin.timeout_message").replace("%time%", String.valueOf(MentionPlugin.getTimeout().getTimeout(sender.getHabboInfo().getId()).getSeconds())));
+      sender.whisper(Emulator.getTexts().getValue("mentionplugin.timeout_message").replace("%time%", String.valueOf(MentionPlugin.getTimeout().getTimeout(sender.getHabboInfo().getId()).getSeconds()* (-1))));
       return false;
     }
     mention = Functions.BubbleAlert(sender, message);
@@ -77,7 +77,7 @@ public class Mention {
             return false;
           }
 
-          if(user.getHabboStats().cache.getOrDefault("blockmention", "0") == "1"){
+          if((boolean) user.getHabboStats().cache.get("blockmention")){
             sender.whisper(Emulator.getTexts().getValue("commands.error.cmd_mention.user_blocksmention"));
             return false;
           }

@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 public class MentionTimeout {
-    private Map < Integer, Timeout > users;
+    private final Map < Integer, Timeout > users;
     public MentionTimeout() {
         this.users = new HashMap < Integer, Timeout > ();
     }

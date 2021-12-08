@@ -24,8 +24,8 @@ public class MentionPlugin extends HabboPlugin implements EventListener {
     public void onEnable() {
         INSTANCE = this;
         Emulator.getPluginManager().registerEvents(this, new EmulatorLoad());
-        this.timeout = new MentionTimeout();
-        this.messages = new ArrayList<Message>();
+        timeout = new MentionTimeout();
+        messages = new ArrayList<Message>();
     }
 
     public void onDisable(){
