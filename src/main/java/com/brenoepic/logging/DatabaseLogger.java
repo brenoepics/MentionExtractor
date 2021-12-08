@@ -28,6 +28,7 @@ public class DatabaseLogger  {
                 LOGGER.error("Caught SQL exception", e);
                 return false;
             }finally {
+                LOGGER.debug("[MENTIONPLUGIN] Mentions saved successfully!");
                 MentionPlugin.dispose();
             }
         }

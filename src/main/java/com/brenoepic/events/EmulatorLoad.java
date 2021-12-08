@@ -8,9 +8,12 @@ import com.eu.habbo.database.Database;
 import com.eu.habbo.plugin.EventHandler;
 import com.eu.habbo.plugin.EventListener;
 import com.eu.habbo.plugin.events.emulator.EmulatorLoadedEvent;
+import com.eu.habbo.plugin.events.emulator.EmulatorStartShutdownEvent;
 
 import java.util.Timer;
 import java.util.TimerTask;
+
+import static com.brenoepic.MentionPlugin.LOGGER;
 
 
 public class EmulatorLoad implements EventListener {
@@ -19,7 +22,7 @@ public class EmulatorLoad implements EventListener {
         Extras.checkDatabase();
         Extras.loadTexts();
         Emulator.getPluginManager().registerEvents(MentionPlugin.INSTANCE, new UserEvents());
-        MentionPlugin.LOGGER.info("[MENTION-PLUGIN 2.2] successfully loaded!");
+        LOGGER.info("[MENTION-PLUGIN 2.2] successfully loaded!");
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
@@ -28,5 +31,11 @@ public class EmulatorLoad implements EventListener {
                 DatabaseLogger.save(MentionPlugin.getMessages());
             }
         }, 0, Emulator.getConfig().getInt("mentionplugin.database.log_timeout", 120000));
+    }
+
+    @EventHandler
+    public static void onEmulatorStopped(EmulatorStartShutdownEvent event) {
+        LOGGER.info("[MENTIONPLUGIN] Stopping...");
+        DatabaseLogger.save(MentionPlugin.getMessages());
     }
 }
