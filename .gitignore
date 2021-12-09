@@ -1,0 +1,3 @@
+.idea/
+target/*
+!target/MentionPlugin-*-jar-with-dependencies.jar
