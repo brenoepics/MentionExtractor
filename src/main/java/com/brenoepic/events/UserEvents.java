@@ -40,7 +40,7 @@ public class UserEvents implements EventListener {
                 if (Emulator.getConfig().getBoolean("commands.cmd_mention.message_success.delete"))
                     event.setCancelled(true);
                 MentionPlugin.addMessage(new Message(sender.getHabboInfo().getId(), GetMention.iterator().next(), event.chatMessage.getMessage()));
-                //TODO Discord Logging
+
             }else{
                 if (Emulator.getConfig().getBoolean("commands.cmd_mention.message_error.delete"))
                     event.setCancelled(true);
@@ -54,7 +54,6 @@ public class UserEvents implements EventListener {
                     for (String userMentioned : GetMention) {
                     MentionPlugin.addMessage(new Message(sender.getHabboInfo().getId(), userMentioned, event.chatMessage.getMessage()));
                     }
-                //TODO Discord Logging
                 }else{
                     if (Emulator.getConfig().getBoolean("commands.cmd_mention.message_error.delete"))
                         event.setCancelled(true);

@@ -46,6 +46,12 @@
 <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
+    <repositories>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+    </repositories>
     <dependencies>
         <dependency>
 			<groupId>com.eu.habbo</groupId>
@@ -57,6 +63,12 @@
             <groupId>com.googlecode.owasp-java-html-sanitizer</groupId>
             <artifactId>owasp-java-html-sanitizer</artifactId>
             <version>20200713.1</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.brenoepics</groupId>
+            <artifactId>discord-webhooks</artifactId>
+            <version>0.2.1</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>

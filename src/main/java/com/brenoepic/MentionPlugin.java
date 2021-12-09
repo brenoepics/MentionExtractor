@@ -1,6 +1,6 @@
 package com.brenoepic;
 
-import com.brenoepic.events.EmulatorLoad;
+import com.brenoepic.events.EmulatorEvents;
 import com.brenoepic.logging.Message;
 import com.brenoepic.timeout.MentionTimeout;
 import com.eu.habbo.Emulator;
@@ -22,7 +22,7 @@ public class MentionPlugin extends HabboPlugin implements EventListener {
     @Override
     public void onEnable() {
         INSTANCE = this;
-        Emulator.getPluginManager().registerEvents(this, new EmulatorLoad());
+        Emulator.getPluginManager().registerEvents(this, new EmulatorEvents());
         timeout = new MentionTimeout();
         messages = new ArrayList<>();
     }

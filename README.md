@@ -7,8 +7,8 @@ if you want a more simple version, here is the link: https://git.krews.org/breno
 if you want a pre-compiled version, here is the link: https://github.com/brenoepics/MentionPlugin/releases/
 ## How to use?
 you just need to send:
-```@username``` or ```@friends``` or ```@everyone``` or ```@room```
-with a message and your friend will receive it.
+```@username``` , ```@friends``` , ```@everyone``` or ```@room```
+with a message.
 - Mention with @username at the beginning of the message [x] 
 - Mention in anywhere in the message [x]
 - Mention all friends with @friends [x] 
@@ -18,7 +18,7 @@ with a message and your friend will receive it.
 - Set Mention Timeout [x]
 - Choose between BubbleAlert or whisper [x]
 - Database logging [x]
-- Discord logging [ ]
+- Discord logging [x]
 <b>with this mention plugin, you can mention anyone without putting the @ at the beginning of the message, the @ can be anywhere</b>
 
 ## How can i install it?

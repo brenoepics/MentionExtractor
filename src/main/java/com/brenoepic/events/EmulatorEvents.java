@@ -14,9 +14,10 @@ import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
 import static com.brenoepic.MentionPlugin.LOGGER;
+import static com.brenoepic.MentionPlugin.getMessages;
 
 
-public class EmulatorLoad implements EventListener {
+public class EmulatorEvents implements EventListener {
     @EventHandler
     public static void onEmulatorLoaded(EmulatorLoadedEvent event) {
         Extras.checkDatabase();
@@ -28,7 +29,7 @@ public class EmulatorLoad implements EventListener {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                if(MentionPlugin.getMessages() != null)
+                if(!getMessages().isEmpty())
                 DatabaseLogger.save(MentionPlugin.getMessages());
             }
         }, 0, minutes);
@@ -37,6 +38,7 @@ public class EmulatorLoad implements EventListener {
     @EventHandler
     public static void onEmulatorStopped(EmulatorStartShutdownEvent event) {
         LOGGER.info("[MENTIONPLUGIN] Stopping...");
+        if(!getMessages().isEmpty())
         DatabaseLogger.save(MentionPlugin.getMessages());
     }
 }

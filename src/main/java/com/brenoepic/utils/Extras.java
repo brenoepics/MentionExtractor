@@ -51,7 +51,8 @@ public class Extras {
 
     Emulator.getConfig().register("mentionplugin.logging_database", "1");
     Emulator.getConfig().register("mentionplugin.database.log_timeout_minutes", "30");
-
+    Emulator.getConfig().register("mentionplugin.logging_discord", "0");
+    Emulator.getConfig().register("mentionplugin.logging.discord-webhook.url", "https://discordapp.com/api/webhooks/<YOURTOKEN>");
     CommandHandler.addCommand(new BlockMentionCommand("cmd_blockmention", Emulator.getTexts().getValue("cmd_blockmention_keys").split(";")));
 
   }
