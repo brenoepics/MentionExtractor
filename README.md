@@ -1,4 +1,4 @@
-# MentionPlugin 2.1
+# MentionPlugin
 
 Working with Arcturus Morningstar 3.0.0
 
