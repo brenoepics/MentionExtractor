@@ -78,8 +78,6 @@ public class UserEvents implements EventListener {
           catch (SQLException e) {
               LOGGER.error("[MentionPlugin]", e);
           }
-      }else{
-          event.habbo.getHabboStats().cache.put("blockmention", false);
       }
 
   }
@@ -87,7 +85,7 @@ public class UserEvents implements EventListener {
     public static void onUserDisconnectEvent(UserDisconnectEvent e){
       final boolean blockmention = (boolean) e.habbo.getHabboStats().cache.get("blockmention");
       try (final Connection connection = Emulator.getDatabase().getDataSource().getConnection();
-           final PreparedStatement statement = connection.prepareStatement("UPDATE `users` SET `blockmentions` = ? WHERE `id` = ? LIMIT 1")) {
+           final PreparedStatement statement = connection.prepareStatement("UPDATE `users_settings` SET `blockmentions` = ? WHERE `user_id` = ? LIMIT 1")) {
           statement.setString(1, blockmention ? "1" : "0");
           statement.setInt(2, e.habbo.getHabboInfo().getId());
           statement.executeUpdate();
