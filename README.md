@@ -69,5 +69,5 @@ with a message.
        
 My Discord: BrenoEpic#9671
 
-##why am i disconnected when i get a mention in the flash?
+## why am i disconnected when i get a mention in the flash?
 Your imager's link is not a valid .png or .gif and the flash disconnects when receiving the bubble alert, change the key `commands.cmd_mention_everyone.look` in the emulator_texts to a valid .png or .gif
