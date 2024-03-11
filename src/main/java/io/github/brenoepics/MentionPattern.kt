@@ -8,6 +8,7 @@ import java.util.regex.Pattern
  */
 class MentionPattern {
     private var pattern: Pattern
+
     /** The default constructor initializes the pattern to match any word character after '@'.  */
     init {
         this.pattern = compile("@(\\w+)")
