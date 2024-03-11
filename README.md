@@ -1,11 +1,14 @@
 # MentionExtractor
+[![Maven Central](https://img.shields.io/maven-central/v/io.github.brenoepics/MentionExtractor?color=purple)](https://central.sonatype.com/artifact/io.github.brenoepics/MentionExtractor)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=brenoepics_MentionExtractor&metric=coverage)](https://sonarcloud.io/summary/new_code?id=brenoepics_MentionExtractor)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=brenoepics_MentionExtractor&metric=alert_status&)](https://sonarcloud.io/summary/new_code?id=brenoepics_MentionExtractor)
 
-This Kotlin library is responsible for extracting mentions from a text based on specified patterns.
+A Kotlin library for extracting mentions from a text based on specified patterns.
 It provides flexible configuration options for handling mentions in a text.
 
 ## Usage
 
-To use the `MentionExtractor` class:
+To use the `MentionExtractor` library:
 
 1. Create a `MentionPattern` instance and configure it according to your requirements.
 
@@ -35,6 +38,38 @@ val containsMention = extractor.containsMention(text)
 // Count the number of mentions in text
 val mentionCount = extractor.countMentions(text)
 ```
+
+## Download / Installation
+
+The recommended way to get MentionExtractor is to use a build manager, like Gradle or Maven.
+
+### [Maven-central](https://central.sonatype.com/artifact/io.github.brenoepics/MentionExtractor) Dependency
+<details>
+  <summary>Gradle</summary>
+    
+```gradle
+implementation group: 'io.github.brenoepics', name: 'MentionExtractor', version: '1.0.0'
+```
+</details>
+<details>
+  <summary>Maven</summary>
+
+```xml
+<dependency>
+    <groupId>io.github.brenoepics</groupId>
+    <artifactId>MentionExtractor</artifactId>
+    <version>1.0.0</version>
+</dependency>
+```
+</details>
+<details>
+  <summary>Sbt</summary>
+
+```sbt
+libraryDependencies += "io.github.brenoepics" % "MentionExtractor" % "1.0.0"
+```
+</details>
+
 
 ## Testing
 
