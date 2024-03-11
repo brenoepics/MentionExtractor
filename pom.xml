@@ -6,10 +6,39 @@
     <groupId>io.github.brenoepics</groupId>
     <artifactId>MentionExtractor</artifactId>
     <version>1.0.0</version>
+    <name>Mention Extractor</name>
+    <description>
+        A simple Java library to extract mentions from a given text.
+    </description>
+    <url>https://github.com/brenoepics/MentionExtractor</url>
+    <licenses>
+        <license>
+            <name>Apache License 2.0</name>
+            <url>https://github.com/brenoepics/MentionExtractor/blob/main/LICENSE</url>
+        </license>
+    </licenses>
+    <developers>
+        <developer>
+            <name>Breno Andrade</name>
+            <email>me@breno.tech</email>
+        </developer>
+    </developers>
+    <scm>
+        <connection>scm:git:git://github.com/brenoepics/MentionExtractor.git</connection>
+        <developerConnection>scm:git:ssh://github.com:brenoepics/MentionExtractor.git</developerConnection>
+        <url>https://github.com/brenoepics/MentionExtractor/tree/main</url>
+    </scm>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <kotlin.version>1.9.23</kotlin.version>
     </properties>
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>GitHub Packages</name>
+            <url>https://maven.pkg.github.com/brenoepics/MentionExtractor</url>
+        </repository>
+    </distributionManagement>
     <dependencies>
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
