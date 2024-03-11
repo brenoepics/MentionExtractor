@@ -1,6 +1,6 @@
 # MentionExtractor
 
-This Kotlin class is responsible for extracting mentions from a text based on specified patterns.
+This Kotlin library is responsible for extracting mentions from a text based on specified patterns.
 It provides flexible configuration options for handling mentions in a text.
 
 ## Usage
