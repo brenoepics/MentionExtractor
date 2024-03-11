@@ -85,4 +85,66 @@ class MentionExtractorTest {
 
         assertEquals(setOf("user1", "user2"), mentions)
     }
+
+    @Test
+    fun `extract mentions from null text`() {
+        val pattern = MentionPattern().defaultPattern()
+        val extractor = MentionExtractor.Builder().pattern(pattern).build()
+
+        val text = null
+        val mentions = extractor.fromString(text)
+
+        assertTrue(mentions.isEmpty())
+    }
+
+    @Test
+    fun `extract mentions from empty text`() {
+        val pattern = MentionPattern().defaultPattern()
+        val extractor = MentionExtractor.Builder().pattern(pattern).build()
+
+        val text = ""
+        val mentions = extractor.fromString(text)
+
+        assertTrue(mentions.isEmpty())
+    }
+
+    @Test
+    fun `check if null text contains mention`() {
+        val pattern = MentionPattern().defaultPattern()
+        val extractor = MentionExtractor.Builder().pattern(pattern).build()
+
+        val text = null
+
+        assertFalse(extractor.containsMention(text))
+    }
+
+    @Test
+    fun `check if empty text contains mention`() {
+        val pattern = MentionPattern().defaultPattern()
+        val extractor = MentionExtractor.Builder().pattern(pattern).build()
+
+        val text = ""
+
+        assertFalse(extractor.containsMention(text))
+    }
+
+    @Test
+    fun `count mentions in null text`() {
+        val pattern = MentionPattern().defaultPattern()
+        val extractor = MentionExtractor.Builder().pattern(pattern).build()
+
+        val text = null
+
+        assertEquals(0, extractor.countMentions(text))
+    }
+
+    @Test
+    fun `count mentions in empty text`() {
+        val pattern = MentionPattern().defaultPattern()
+        val extractor = MentionExtractor.Builder().pattern(pattern).build()
+
+        val text = ""
+
+        assertEquals(0, extractor.countMentions(text))
+    }
 }
