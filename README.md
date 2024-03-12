@@ -6,7 +6,13 @@
 A Kotlin library for extracting mentions from a text based on specified patterns.
 It provides flexible configuration options for handling mentions in a text.
 
+
 ## Usage
+
+### Arcturus Morningstar
+[Plugin Download](https://github.com/brenoepics/mentionplugin)
+
+### Custom
 
 To use the `MentionExtractor` library:
 
